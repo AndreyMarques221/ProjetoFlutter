@@ -12,7 +12,14 @@ class TodoListPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(controller: emailController, decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'Email'), onChanged: onChanged),
+              TextField(
+                controller: emailController, 
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                   labelText: 'Email'
+                   ),
+                onChanged: onChanged,
+             ),
               ElevatedButton(onPressed: login, child: Text('Entrar')),
             ],
           ),
@@ -28,8 +35,8 @@ class TodoListPage extends StatelessWidget {
     print(email);
     emailController.clear();
   }
-
-  void onChanged(String text) {
+  void onChanged(String text){
     print(text);
   }
 }
+
