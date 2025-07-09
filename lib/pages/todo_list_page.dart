@@ -8,35 +8,41 @@ class TodoListPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 50),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: emailController, 
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                   labelText: 'Email'
-                   ),
-                onChanged: onChanged,
-             ),
-              ElevatedButton(onPressed: login, child: Text('Entrar')),
-            ],
+            children: [addTarefa()],
           ),
         ),
       ),
     );
   }
 
-  void login() {
-    String email;
-    email = emailController.text;
-    // ignore: avoid_print
-    print(email);
-    emailController.clear();
-  }
-  void onChanged(String text){
-    print(text);
+  Row addTarefa() {
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Adicione uma tarefa',
+              hintText: 'Ex: Estudar Flutter',
+            ),
+          ),
+        ),
+        SizedBox(width: 20),
+        ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.purple,
+            padding: EdgeInsets.all(18),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
+            ),
+          ),
+          child: Icon(Icons.add, color: Colors.black, size: 30),
+        ),
+      ],
+    );
   }
 }
-
