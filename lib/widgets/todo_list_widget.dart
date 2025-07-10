@@ -1,40 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
+import 'package:todolist/models/todo.dart';
 
 class TodoListWidget extends StatelessWidget {
-  const TodoListWidget({super.key, required this.toDo});
-  final String toDo;
+  const TodoListWidget({super.key, required this.task, required this.onDelete});
+  final ToDo task;
+  final Function(ToDo) onDelete;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color : Colors.grey[200],
-        borderRadius: BorderRadius.circular(20),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      child: Slidable(
+        closeOnScroll: true,
+        endActionPane: ActionPane(
+          extentRatio: 0.25,
+          motion: DrawerMotion(),
+          children: [
+            SlidableAction(
+              label: 'Delete', 
+              autoClose: true, 
+              onPressed: (context) {
+                onDelete(task);
+              }, 
+              backgroundColor: Color(0xFFFE4A49), 
+              icon: Icons.delete)
+              ],
         ),
-      padding : EdgeInsets.all(16),
-      child: Column( 
-        crossAxisAlignment: CrossAxisAlignment.start,
+        child: Container(
+          decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(3)),
+          padding: EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
 
-        children : [
-          Text(_date(), style : TextStyle(fontSize: 12)),
-          Text(toDo, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),),
-          SizedBox(height: 20),
-        ]
+            children: [
+              Text(DateFormat('dd/MM/yyyy - HH:mm').format(task.date), style: TextStyle(fontSize: 12)),
+              Text(task.title, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+            ],
+          ),
+        ),
       ),
     );
-  }
-  String _date() {
-    String date = '';
-    date += DateTime.now().day.toString().padLeft(2, '0');
-    date += '/';
-    date += DateTime.now().month.toString().padLeft(2, '0');
-    date += '/';
-    date += DateTime.now().year.toString().padLeft(2, '0');
-    date += ' - ';
-    date += DateTime.now().hour.toString().padLeft(2, '0');
-    date += ':';
-    date += DateTime.now().minute.toString().padLeft(2, '0');
-    date += ':';
-    date += DateTime.now().second.toString().padLeft(2, '0');
-    return date;
   }
 }
