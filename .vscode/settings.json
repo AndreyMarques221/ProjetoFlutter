@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "D:/backup-andrey/pessoal/todoList/todolist/windows"
+    "cmake.sourceDirectory": "D:/backup-andrey/pessoal/todoList/todolist/windows",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
