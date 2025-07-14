@@ -1,41 +1,68 @@
+// ARQUIVO: TodoListWidget.dart (ESTILIZADO)
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:todolist/models/todo.dart';
 
 class TodoListWidget extends StatelessWidget {
-  const TodoListWidget({super.key, required this.task, required this.onDelete});
+  const TodoListWidget({
+    super.key,
+    required this.task,
+    required this.onDelete,
+    required this.onEdit,
+  });
+
   final ToDo task;
   final Function(ToDo) onDelete;
+  final Function(ToDo) onEdit;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.0),
+    // Usando Card para um visual mais limpo e com elevação
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 2,
       child: Slidable(
         closeOnScroll: true,
         endActionPane: ActionPane(
-          extentRatio: 0.25,
-          motion: DrawerMotion(),
+          motion: const BehindMotion(), // BehindMotion tem um efeito mais suave
+          extentRatio: 0.4,
           children: [
             SlidableAction(
-              label: 'Delete', 
-              autoClose: true, 
-              onPressed: (context) {
-                onDelete(task);
-              }, 
-              backgroundColor: Color(0xFFFE4A49), 
-              icon: Icons.delete)
-              ],
+              padding: EdgeInsets.symmetric(horizontal: 0),
+              onPressed: (context) => onEdit(task),
+              label: 'Editar',
+              backgroundColor: Colors.blueAccent,
+              icon: Icons.edit,
+            ),
+            SlidableAction(
+              padding: EdgeInsets.symmetric(horizontal: 0),
+              onPressed: (context) => onDelete(task),
+              label: 'Deletar',
+              backgroundColor: Colors.redAccent,
+              icon: Icons.delete,
+            ),
+          ],
         ),
-        child: Container(
-          decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(3)),
-          padding: EdgeInsets.all(8),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-
             children: [
-              Text(DateFormat('dd/MM/yyyy - HH:mm').format(task.date), style: TextStyle(fontSize: 12)),
-              Text(task.title, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+              Text(
+                DateFormat('dd/MM/yyyy - HH:mm').format(task.date),
+                style: const TextStyle(fontSize: 12, color: Colors.grey),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                task.title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
             ],
           ),
         ),
