@@ -14,6 +14,7 @@ class _TodoListPageState extends State<TodoListPage> {
   List<ToDo> toDos = [];
   ToDo? undo;
   int? undoIndex;
+  String? errorText;
   final TextEditingController toDoController = TextEditingController();
   final TodoRepository toDoRepository = TodoRepository();
   String? error;
@@ -44,7 +45,6 @@ class _TodoListPageState extends State<TodoListPage> {
       ),
     );
   }
-
   Row bottomPart() {
     return Row(
       children: [
@@ -140,8 +140,8 @@ class _TodoListPageState extends State<TodoListPage> {
         duration: const Duration(seconds: 5),
       ),
     );
+    toDoRepository?.saveToDoList(toDos);
   }
-
   void _onEdit(ToDo toDo) {
     final TextEditingController editController = TextEditingController(text: toDo.title);
 
@@ -179,6 +179,7 @@ class _TodoListPageState extends State<TodoListPage> {
       context: context,
       builder:
           (context) => AlertDialog(
+
             title: const Text('Limpar Tudo?'),
             content: const Text('Você tem certeza que deseja apagar todas as tarefas?'),
             actions: [
@@ -187,6 +188,7 @@ class _TodoListPageState extends State<TodoListPage> {
                 onPressed: () {
                   setState(() {
                     toDos.clear();
+
                   });
                   toDoRepository.saveToDoList(toDos);
                   Navigator.of(context).pop();
