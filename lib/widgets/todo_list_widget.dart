@@ -14,7 +14,6 @@ class TodoListWidget extends StatelessWidget {
   final ToDo task;
   final Function(ToDo) onDelete;
   final Function(ToDo) onEdit;
-
   @override
   Widget build(BuildContext context) {
     // Usando Card para um visual mais limpo e com elevação

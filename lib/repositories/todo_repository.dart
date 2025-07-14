@@ -6,7 +6,6 @@ const toDoKey = 'todo_list';
 
 class TodoRepository {
   late SharedPreferences sharedPreferences;
-
   Future<List<ToDo>> getTodoList() async {
     sharedPreferences = await SharedPreferences.getInstance();
     final String jsonString = sharedPreferences.getString(toDoKey) ?? '[]';

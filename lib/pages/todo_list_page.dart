@@ -96,7 +96,6 @@ class _TodoListPageState extends State<TodoListPage> {
           ),
     );
   }
-
   bool _onSubmitted(String text) {
     if (text.isEmpty) {
       setState(() {
@@ -144,7 +143,6 @@ class _TodoListPageState extends State<TodoListPage> {
   }
   void _onEdit(ToDo toDo) {
     final TextEditingController editController = TextEditingController(text: toDo.title);
-
     showDialog(
       context: context,
       builder:
@@ -179,7 +177,6 @@ class _TodoListPageState extends State<TodoListPage> {
       context: context,
       builder:
           (context) => AlertDialog(
-
             title: const Text('Limpar Tudo?'),
             content: const Text('Você tem certeza que deseja apagar todas as tarefas?'),
             actions: [
@@ -188,7 +185,6 @@ class _TodoListPageState extends State<TodoListPage> {
                 onPressed: () {
                   setState(() {
                     toDos.clear();
-
                   });
                   toDoRepository.saveToDoList(toDos);
                   Navigator.of(context).pop();
